@@ -196,10 +196,9 @@
                     <div class="intro-slide" style="position: relative; background-image: url({{ url('public') }}/{{ $banner->url_banner }}); background-size: cover; background-position: center;">
                         <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);"></div>
                         <div class="container intro-content text-center" style="position: relative; z-index: 1;">
-                            <h3 class="intro-subtitle text-white">Don’t Miss</h3><!-- End .h3 intro-subtitle -->
                             <h1 class="intro-title text-white">Amplang Kite</h1><!-- End .intro-title -->
-                            <div class="intro-text text-white">Online Only</div><!-- End .intro-text -->
-                            <a href="category.html" class="btn btn-primary">Discover NOW</a>
+                            <br>
+                            <a href="{{ url('shop') }}" class="btn btn-primary">Jelajahi</a>
                         </div><!-- End .intro-content -->
                     </div><!-- End .intro-slide -->
                 </div><!-- End .intro-slider owl-carousel owl-theme -->
@@ -252,7 +251,7 @@
                 </div><!-- End .tab-content -->
 
                 <div class="more-container text-center mt-1 mb-3">
-                    <a href="#" class="btn btn-outline-primary-2 btn-round btn-more">Load more</a>
+                    <a href="{{ url('shop') }}" class="btn btn-outline-primary-2 btn-round btn-more">Load more</a>
                 </div><!-- End .more-container -->
             </div><!-- End .container -->
 
