@@ -1,4 +1,4 @@
-<x-com-admin.base>
+<x-app>
     @foreach ($list as $produk) @endforeach
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -21,12 +21,12 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="w-full h-[250px]  overflow-hidden">
-                                        <img src="{{ url('public') }}/{{ $produk->thumbnail_produk }}" alt="" class="w-full h-full">
+                                        <img src="{{ url('public') }}/{{ $produk->thumbnail_produk }}" alt="" style="max-height: screen;">
                                     </div>
                                     <div class="grid grid-cols-3 gap-3 mt-6">
                                         @foreach ($produk->galeri as $galeri)
                                         <div>
-                                            <img src="{{ url('public') }}/{{ $galeri->gambar }}" alt="asasa" class="w-full h-[100px]">
+                                            <img src="{{ url('public') }}/{{ $galeri->gambar }}" alt="asasa" style="max-height: 100px;" class="w-full h-[100px]">
                                         </div>
                                         @endforeach
                                     </div>
@@ -67,19 +67,19 @@
                                             <span class="w-[20%] font-medium text-base text-slate-600">Deskripsi </span>
                                             <span>{!! $produk->deskripsi_produk !!}</span>
                                         </li>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.col -->
+                <!-- /.card -->
             </div>
-            <!-- /.row -->
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-</x-com-admin.base>
+</x-app>

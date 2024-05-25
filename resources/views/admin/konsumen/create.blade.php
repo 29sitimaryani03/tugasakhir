@@ -1,4 +1,4 @@
-<x-com-admin.base>
+<x-app>
 
     <section class="content">
         <div class="container-fluid">
@@ -11,7 +11,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form action="{{ url('admin/konsumen/store') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ url('admin/konsumen') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-4">
@@ -127,4 +127,4 @@
             map.on('click', onMapClick);
         </script>
     @endpush
-</x-com-admin.base>
+</x-app>

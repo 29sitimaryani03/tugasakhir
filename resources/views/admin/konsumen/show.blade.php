@@ -1,4 +1,4 @@
-<x-com-admin.base>
+<x-app>
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -61,4 +61,4 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-</x-com-admin.base>
+</x-app>

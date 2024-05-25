@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -9,16 +10,19 @@ use App\Models\Galeri;
 
 class ProdukadminController extends Controller
 {
-    function index(){
+    function index()
+    {
         $data['list'] = Produk::get();
         return view('admin.produk.index', $data);
     }
 
-    function create(){
+    function create()
+    {
         return view('admin.produk.create');
     }
 
-    function store(Request $request){
+    function store(Request $request)
+    {
         $harga =  Str::of($request->harga_produk)->replace(['Rp ', '.'], '');
         $gambar = $request->file('gambar');
         // Simpan produk
@@ -50,57 +54,62 @@ class ProdukadminController extends Controller
         }
     }
 
-    function show($id){
+    function show($id)
+    {
         $data['list'] = Produk::with('galeri')->where('id', $id)->get();
         return view('admin.produk.show', $data);
     }
 
-    function edit(Produk $id){
-        $data['produk'] = $id;
-        return view('admin.produk.edit', $data);
+    public function edit($id)
+    {
+        return view('admin.produk.edit', [
+            'produk' => Produk::findOrFail($id),
+        ]);
     }
-    function update(Request $request, Produk $id){
+    function update(Request $request, Produk $id)
+    {
         $harga =  Str::of($request->harga_produk)->replace(['Rp ', '.'], '');
         $produk = $id;
-        if($request->thumbnail_produk != null){
+        if ($request->thumbnail_produk != null) {
             // Hapus thumbnail lama
             $hapus = $produk->handleDeleteFoto();
-            if( $hapus){
-                $produk->nama_produk = $request->nama_produk;
-                $produk->harga_produk = $harga;
-                $produk->berat_produk = $request->berat_produk;
-                $produk->stok_produk = $request->stok_produk;
-                $produk->varian_produk = $request->varian_produk;
-                $produk->varian_rasa = $request->varian_rasa;
-                $produk->handleUploadFoto();
-                $produk->deskripsi_produk = $request->deskripsi_produk;
+            if ($hapus) {
+                if (request('nama_produk')) $produk->nama_produk = request('nama_produk');
+                if (request('harga_produk')) $produk->harga_produk = $harga;
+                if (request('berat_produk')) $produk->berat_produk = request('berat_produk');
+                if (request('stok_produk')) $produk->stok_produk = request('stok_produk');
+                if (request('varian_produk')) $produk->varian_produk = request('varian_produk');
+                if (request('varian_rasa')) $produk->varian_rasa = request('varian_rasa');
+                if (request('thumbnail_produk')) $produk->handleUploadFoto();
+                if (request('deskripsi_produk')) $produk->deskripsi_produk = request('deskripsi_produk');
                 $edit = $produk->update();
                 if ($edit) {
                     return redirect('admin/produk')->with('success', 'Produk berhasil diupdate !');
-                }else{
+                } else {
                     return back()->with('danger', 'Produk gagal diupdate !');
                 }
-            }else{
+            } else {
                 return back()->with('danger', 'Produk gagal diupdate !');
             }
-        }else{
-            $produk->nama_produk = $request->nama_produk;
-            $produk->harga_produk = $harga;
-            $produk->berat_produk = $request->berat_produk;
-            $produk->stok_produk = $request->stok_produk;
-            $produk->varian_produk = $request->varian_produk;
-            $produk->varian_rasa = $request->varian_rasa;
-            $produk->deskripsi_produk = $request->deskripsi_produk;
+        } else {
+            if (request('nama_produk')) $produk->nama_produk = request('nama_produk');
+            if (request('harga_produk')) $produk->harga_produk = $harga;
+            if (request('berat_produk')) $produk->berat_produk = request('berat_produk');
+            if (request('stok_produk')) $produk->stok_produk = request('stok_produk');
+            if (request('varian_produk')) $produk->varian_produk = request('varian_produk');
+            if (request('varian_rasa')) $produk->varian_rasa = request('varian_rasa');
+            if (request('deskripsi_produk')) $produk->deskripsi_produk = request('deskripsi_produk');
             $edit = $produk->update();
             if ($edit) {
                 return redirect('admin/produk')->with('success', 'Produk berhasil diupdate !');
-            }else{
+            } else {
                 return back()->with('danger', 'Produk gagal diupdate !');
             }
         }
     }
 
-    function hapus($id){
+    function destroy($id)
+    {
 
         $produk = Produk::with('galeri')->find($id);
         $galeri = $produk->galeri;
@@ -115,22 +124,21 @@ class ProdukadminController extends Controller
             if ($hapusThumb) {
                 $produk->delete();
                 return back()->with('success', 'Produk berhasil dihapus !');
-            }else{
+            } else {
                 return back()->with('danger', 'Produk gagal dihapus !');
             }
-
-        }else{
+        } else {
             return back()->with('danger', 'Produk gagal dihapus !');
         }
-
     }
 
     // Hapus file di galeri
-    function handleDeleteMultipleFoto($filePaths){
-        foreach($filePaths as $filePath){
-            if($filePath){
+    function handleDeleteMultipleFoto($filePaths)
+    {
+        foreach ($filePaths as $filePath) {
+            if ($filePath) {
                 $path = public_path($filePath);
-                if(file_exists($path)){
+                if (file_exists($path)) {
                     unlink($path);
                 }
             }

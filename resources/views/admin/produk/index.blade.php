@@ -15,10 +15,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-
                     <div class="card">
                         <div class="card-header">
-                            <a href="" data-toggle="modal" data-target="#tambah-data" class="float-right btn btn-dark"><i class="fas fa-plus"></i> Tambah Data</a>
+                            <a href="{{ url('admin/produk/create') }}" class="float-right btn btn-dark"><i class="fas fa-plus"></i> Tambah Data</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -37,9 +36,10 @@
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">
-                                            <img src="{{ url('public') }}/{{ $produk->thumbnail_produk }}" alt="" class="w-[60px] h-[60px]">
+                                            <img src="{{ url('public') }}/{{ $produk->thumbnail_produk }}" alt="" style="max-width: 80px; max-height: 50px;">
                                         </td>
-                                        <td class="text-center">{{ $produk->nama_produk }}</td>
+                                        <td class=" text-center">{{ $produk->nama_produk }}
+                                        </td>
                                         <td class="text-center">{{ $produk->rupiah() }}</td>
                                         <td class="text-center">{{ $produk->varian_produk }}</td>
                                         <td class="text-center">{{ $produk->varian_rasa }}</td>
