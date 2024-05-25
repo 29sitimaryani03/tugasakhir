@@ -1,0 +1,26 @@
+[
+    {
+        "id": 7,
+        "kode_transaksi": "TRNS-17-0001",
+        "id_produk": 28,
+        "id_konsumen": 2,
+        "banyak_produk": 2,
+        "jumlah_harga": 10000,
+        "metode_pembayaran": "Bayar Langsung",
+        "bukti_pembayaran": null,
+        "status_transaksi": "New",
+        "created_at": "2024-03-17T15:04:49.000000Z",
+        "updated_at": "2024-03-17T15:04:49.000000Z",
+        "konsumen": {
+            "id": 2,
+            "nama": "Siti Maryani",
+            "tlp": "085765757575",
+            "alamat": "Dusun Pebahan Raya, RT 011 RW 004, Desa Pulau Kumbang, Kec Simpang Hilir, Kab Kayong Utara, Kalimantan Barat",
+            "email": "Siti_Maryani@gmail.com",
+            "password": "$2y$12$MtJkmt4kax.A05.8tC4W1OoYK1Hv97s23dgmaAGJ7GuzcnszmWKKe",
+            "created_at": "2024-03-08T09:42:21.000000Z",
+            "updated_at": "2024-03-21T14:50:55.000000Z"
+        },
+        "produk": []
+    }
+]

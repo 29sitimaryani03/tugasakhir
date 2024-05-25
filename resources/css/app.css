@@ -1,0 +1,348 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.landing-page{
+    font-family: "Poppins", sans-serif;
+    @apply
+    w-screen
+    overflow-x-hidden
+}
+.app-bar{
+    @apply
+    flex
+    flex-col
+    md:flex-row
+    fixed
+    top-0
+    left-0
+    right-0
+}
+.appbar-left{
+    @apply
+    w-full
+    flex
+    items-center
+    justify-between
+    bg-pink-600
+    shadow-md
+    md:shadow-none
+    md:h-14
+    md:px-8
+}
+.appbar-left .brands{
+    @apply
+    flex
+    items-center
+    justify-center
+    font-semibold
+    text-xl
+    px-8
+    md:px-0
+    text-white
+}
+.appbar-left .btn-appbar-toggle {
+    @apply
+    flex
+    items-center
+    justify-center
+    w-14
+    h-14
+    md:hidden
+}
+.appbar-right{
+    @apply
+    relative
+    bg-pink-600
+    md:pr-8
+    md:w-[200%]
+    md:flex
+    md:justify-between
+}
+.appbar-right .appbar-right-menu-center,
+.appbar-right .appbar-right-menu-right{
+    @apply
+    flex
+    flex-col
+    md:flex-row
+}
+.appbar-right .appbar-right-menu-center li a,
+.appbar-right .appbar-right-menu-right li a{
+    @apply
+    flex
+    items-center
+    px-3
+    py-2
+    font-normal
+    text-slate-100
+    text-base
+    uppercase
+    hover:bg-pink-700
+    transition-all
+    duration-300
+    ease-linear
+    md:h-14
+}
+.appbar-right .appbar-right-menu-right li .shoping-bag-btn{
+    @apply
+    relative
+    w-14
+    h-14
+    flex
+    items-center
+    justify-center
+}
+.appbar-right .appbar-right-menu-right li .shoping-bag-btn i{
+    @apply
+    text-2xl
+}
+.appbar-right .appbar-right-menu-right li .shoping-bag-btn span{
+    @apply
+    absolute
+    bg-green-600
+    text-[11px]
+    text-white
+    flex
+    items-center
+    justify-center
+    rounded-full
+    w-5
+    h-5
+    top-2
+    right-0
+}
+.drop-card .dropdown-menu{
+    @apply
+    bg-white
+    shadow
+    border-none
+    p-0
+    min-w-[300px]
+}
+.drop-card .dropdown-menu .header{
+    @apply
+    flex
+    items-center
+    justify-start
+    font-medium
+    text-slate-600
+    text-base
+    uppercase
+    px-3
+    py-4
+    border-b
+    border-b-slate-300
+    mb-3
+}
+.drop-card .dropdown-menu .body{
+    @apply
+    p-0
+}
+.drop-card .dropdown-menu .body .card-keranjang{
+    @apply
+    hover:bg-slate-200
+    flex
+    gap-3
+    px-3
+    py-4
+}
+.drop-card .dropdown-menu .body .card-keranjang .left{
+    @apply
+    w-[50px]
+    h-[50px]
+    rounded-full
+    overflow-hidden
+}
+.drop-card .dropdown-menu .body .card-keranjang .center{
+    @apply
+    w-full
+}
+.drop-card .dropdown-menu .body .card-keranjang .center .name{
+    @apply
+    text-sm
+    text-slate-600
+}
+.drop-card .dropdown-menu .body .card-keranjang .center .dt{
+    @apply
+    flex
+    items-center
+    justify-between
+    py-2
+}
+.drop-card .dropdown-menu .body .card-keranjang .center .dt .date,
+.drop-card .dropdown-menu .body .card-keranjang .center .dt .time{
+    @apply
+    text-[10px]
+    text-slate-500
+}
+
+/* Hero section */
+section.hero{
+    @apply
+    h-screen
+    w-screen
+    grid
+    grid-cols-1
+    md:grid-cols-2
+    overflow-hidden
+}
+.btns-reg{
+    @apply
+    px-9
+    py-3
+    bg-pink-500
+    hover:bg-pink-600
+    hover:shadow
+    text-white
+    font-medium
+    uppercase
+    rounded-full
+    text-base
+    mt-12
+    transition-all
+    ease-linear
+    duration-300
+}
+
+.form-input-login{
+    @apply
+    flex
+    flex-col
+}
+.form-input-login label{
+    @apply
+    text-sm
+    text-slate-600
+    mb-1
+    font-medium
+}
+.form-input-login .form-input{
+    @apply
+    border-2
+    border-slate-400
+    outline-none
+    text-sm
+    rounded-md
+    px-3
+    py-2
+    focus:border-sky-500
+}
+.form-input-login .form-input.is-invalid{
+    @apply
+    border-red-500
+    focus:border-red-500
+}
+.btns-signin{
+    @apply
+    flex
+    items-center
+    justify-center
+    px-8
+    py-3
+    bg-pink-500
+    text-white
+    font-medium
+    text-sm
+    rounded-md
+    hover:bg-pink-600
+    hover:shadow-lg
+    transition-all
+    duration-300
+    ease-linear
+}
+
+/* Navbars header */
+.navbars-header{
+    @apply
+    fixed
+    top-0
+    left-0
+    right-0
+    flex
+    flex-col
+    md:flex-row
+    w-full
+    bg-white
+    shadow-md
+    md:py-3
+}
+.navbars-header .aside-left{
+    @apply
+    flex
+    items-center
+    justify-between
+    md:px-14
+    gap-6
+}
+.navbars-header .aside-left .brand{
+    @apply
+    text-xl
+    font-semibold
+    text-pink-500
+}
+.navbars-header .aside-left .header-btn-toggle{
+    @apply
+    flex
+    flex-col
+    items-center
+    justify-center
+    w-14
+    h-14
+    gap-1
+    md:hidden
+}
+.navbars-header .aside-left .header-btn-toggle span{
+    @apply
+    inline-block
+    w-6
+    h-[2px]
+    bg-slate-400
+}
+.navbars-header .header-center{
+    @apply
+    hidden
+    md:flex
+    md:items-center
+    justify-evenly
+    md:flex-row
+    flex-col
+    w-full
+    md:px-14
+
+}
+.navbars-header .header-menus{
+    @apply
+    flex
+    md:items-center
+    md:justify-between
+    flex-col
+    md:flex-row
+    w-full
+    md:w-auto
+}
+.navbars-header .header-menus li a{
+    @apply
+    flex
+    items-center
+    md:justify-center
+    px-3
+    py-2
+    text-base
+    text-slate-500
+    gap-3
+    hover:bg-slate-50
+    md:h-14
+    hover:text-pink-500
+    transition-all
+    duration-300
+    ease-linear
+    /* md:w-[180px] */
+
+}
+.navbars-header .header-menus li a .bi{
+    @apply
+    text-[18px]
+}
+
+

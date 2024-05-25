@@ -1,0 +1,7 @@
+{
+    "editor.fontWeight": "normal",
+    "terminal.integrated.fontWeight": "normal",
+    "editor.fontLigatures": false,
+    "workbench.sidebar.explorer.defaultWidth": 500,
+    "workbench.sidebar.useViewSpecificSidebarWidths": true
+}
