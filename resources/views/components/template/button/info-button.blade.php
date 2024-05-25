@@ -1,0 +1,1 @@
+<a href="{{ url($url, $id) }}" class="btn btn-dark"><i class="fas fa-eye"></i></a>

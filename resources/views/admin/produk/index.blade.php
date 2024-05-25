@@ -1,4 +1,4 @@
-<x-com-admin.base>
+<x-app>
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -18,59 +18,43 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <div class="flex items-center justify-end ">
-                                <a href="{{ url('admin/produk/create') }}" class="btn btn-success">
-                                    <i class="bi bi-plus"></i>
-                                    <span>Tambah Data</span>
-                                </a>
-                            </div>
+                            <a href="" data-toggle="modal" data-target="#tambah-data" class="float-right btn btn-dark"><i class="fas fa-plus"></i> Tambah Data</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <x-table.table>
-                                <thead>
-                                    <tr>
-                                        <x-table.th label="No." />
-                                        <x-table.th label="Image" />
-                                        <x-table.th label="Produk" />
-                                        <x-table.th label="Harga" />
-                                        <x-table.th label="Varian" />
-                                        <x-table.th label="Rasa" />
-                                        <x-table.th label="Action" />
-                                    </tr>
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead class="bg-dark">
+                                    <th style="color: dark;">NO</th>
+                                    <th style="color: dark;" class="text-center">Image</th>
+                                    <th style="color: dark;" class="text-center">Produk</th>
+                                    <th style="color: dark;" class="text-center">Harga</th>
+                                    <th style="color: dark;" class="text-center">Varian</th>
+                                    <th style="color: dark;" class="text-center">Rasa</th>
+                                    <th style="color: dark;" width="90px" class="text-center">AKSI</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($list as $produk)
-
                                     <tr>
-                                        <x-table.td label=" {{ $loop->iteration }}" />
-                                        <x-table.td-action>
+                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td class="text-center">
                                             <img src="{{ url('public') }}/{{ $produk->thumbnail_produk }}" alt="" class="w-[60px] h-[60px]">
-                                        </x-table.td-action>
-                                        <x-table.td label="{{ $produk->nama_produk }}" />
-                                        <x-table.td label="{{  $produk->rupiah() }}" />
-                                        <x-table.td label="{{ $produk->varian_produk }}" />
-                                        <x-table.td label="{{ $produk->varian_rasa }}" />
-                                        <x-table.td-action>
+                                        </td>
+                                        <td class="text-center">{{ $produk->nama_produk }}</td>
+                                        <td class="text-center">{{ $produk->rupiah() }}</td>
+                                        <td class="text-center">{{ $produk->varian_produk }}</td>
+                                        <td class="text-center">{{ $produk->varian_rasa }}</td>
+                                        <td class="text-center">
                                             <div class="btn-group">
-                                                <a href="{{ url('admin/produk/show', $produk->id  ) }}" class="btn btn-warning">
-                                                    <i class="bi bi-eye"></i>
-                                                </a>
-                                                <a href="{{ url('admin/produk/edit', $produk->id  ) }}" class="btn btn-primary">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                </a>
-                                                <a href="#delete{{ $produk->id  }}" class="btn btn-danger" data-toggle="modal">
-                                                    <i class="bi bi-trash"></i>
-                                                </a>
+                                                <x-template.button.info-button url="admin/produk" id="{{ $produk->id }}" />
+                                                <x-template.button.edit-button url="admin/produk" id="{{ $produk->id }}" />
+                                                <x-template.button.delete-button url="admin/produk" id="{{ $produk->id }}" />
                                             </div>
-                                        </x-table.td-action>
+                                        </td>
                                     </tr>
-
-                                    <x-modal.modal-delete id="delete{{ $produk->id  }}" url="{{ url('admin/produk/hapus', $produk->id  ) }}" />
                                     @endforeach
                                 </tbody>
 
-                            </x-table.table>
+                            </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -83,4 +67,4 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-</x-com-admin.base>
+</x-app>
