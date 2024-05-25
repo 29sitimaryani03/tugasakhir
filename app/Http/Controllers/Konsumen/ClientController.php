@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Konsumen;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Footer;
 use App\Models\Logo;
 use App\Models\Produk;
@@ -18,7 +19,8 @@ class ClientController extends Controller
         $logo = Logo::first();
         $footer = Footer::first();
         $sosmed = Sosmed::all();
-        return view('frontview.home', $data, compact('logo', 'footer', 'sosmed'));
+        $banner = Banner::first();
+        return view('frontview.home', $data, compact('logo', 'footer', 'sosmed', 'banner'));
     }
 
     function shop()

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\DashboardadminController;
 use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\KeranjangadminController;
@@ -33,6 +34,7 @@ Route::prefix('admin')->group(function () {
   Route::resource('logo', LogoController::class);
   Route::resource('footer', FooterController::class);
   Route::resource('sosmed', SosmedController::class);
+  Route::resource('banner', BannerController::class);
 });
 
 // Front View

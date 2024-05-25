@@ -163,6 +163,28 @@
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
                         </div><!-- End .cart-dropdown -->
+                        <br>
+                        <nav class="main-nav ml-7">
+                            <ul class="menu sf-arrows">
+                                <li class="mr-0 ml-4">
+                                    @if(Auth::check())
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle" style="font-size: large; font-weight:500;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ request()->user()->nama }}
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" style="font-size: medium;" href="{{ url('profile') }}">Profile</a>
+                                            <a class="dropdown-item" style="font-size: medium;" href="{{ url('settings') }}">Settings</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" style="font-size: medium;" href="{{ url('logout') }}" onclick="return confirm('Apakah anda yakin akan logout ?')">Logout</a>
+                                        </div>
+                                    </div>
+                                    @else
+                                    <a href="{{ url('login') }}">Login</a>
+                                    @endif
+                                </li>
+                            </ul>
+                        </nav><!-- End .main-nav -->
                     </div><!-- End .header-right -->
                 </div><!-- End .container-fluid -->
             </div><!-- End .header-middle -->
@@ -171,21 +193,13 @@
         <main class="main">
             <div class="intro-slider-container mb-0">
                 <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{"nav": false, "dots": false}'>
-                    <div class="intro-slide" style="background-image: url({{ url('public') }}/front/assets/images/demos/demo-5/slider/slide-1.jpg);">
-                        <div class="container intro-content text-center">
+                    <div class="intro-slide" style="position: relative; background-image: url({{ url('public') }}/{{ $banner->url_banner }}); background-size: cover; background-position: center;">
+                        <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);"></div>
+                        <div class="container intro-content text-center" style="position: relative; z-index: 1;">
                             <h3 class="intro-subtitle text-white">Don’t Miss</h3><!-- End .h3 intro-subtitle -->
                             <h1 class="intro-title text-white">Mystery Deals</h1><!-- End .intro-title -->
                             <div class="intro-text text-white">Online Only</div><!-- End .intro-text -->
                             <a href="category.html" class="btn btn-primary">Discover NOW</a>
-                        </div><!-- End .intro-content -->
-                    </div><!-- End .intro-slide -->
-
-                    <div class="intro-slide" style="background-image: url({{ url('public') }}/front/assets/images/demos/demo-5/slider/slide-2.jpg);">
-                        <div class="container intro-content text-center">
-                            <h3 class="intro-subtitle text-white">Limited time only</h3><!-- End .h3 intro-subtitle -->
-                            <h1 class="intro-title text-white">Treat your self</h1><!-- End .intro-title -->
-                            <div class="intro-text text-white">Up to 50% off</div><!-- End .intro-text -->
-                            <a href="category.html" class="btn btn-primary">Shop NOW</a>
                         </div><!-- End .intro-content -->
                     </div><!-- End .intro-slide -->
                 </div><!-- End .intro-slider owl-carousel owl-theme -->
