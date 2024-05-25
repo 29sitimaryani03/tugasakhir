@@ -7,7 +7,7 @@
   </ul>
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link semi-bold" href="{{ url('beranda') }}" style="font-weight: 500 ;">Halaman Depan</a>
+      <a class="nav-link semi-bold" href="{{ url('home') }}" style="font-weight: 500 ;">Halaman Depan</a>
     </li>
   </ul>
 
