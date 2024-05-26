@@ -39,49 +39,57 @@ class Transaksi extends Model
         'metode_pembayaran.required'  => 'Harus diisi, tidak bolh kosong !',
     ];
 
-    function konsumen(){
+    function konsumen()
+    {
         return $this->belongsTo(Konsumen::class, 'id_konsumen', 'id');
     }
-    function produk(){
-        return $this->hasMany(Produk::class, 'id', 'id_produk');
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'id_produk', 'id'); // Sesuaikan dengan nama model dan kolom kunci asing Anda
     }
 
 
-    function handleUploadFoto(){
-        if(request()->hasFile('bukti_pembayaran')){
+    function handleUploadFoto()
+    {
+        if (request()->hasFile('bukti_pembayaran')) {
             $this->handleDeleteFoto();
             $bukti_pembayaran = request()->file('bukti_pembayaran');
             $destination = "bukti_pembayaran";
             $randomStr = Str::random(5);
-            $filename = $this->id."-".time()."-".$randomStr.".". $bukti_pembayaran->extension();
+            $filename = $this->id . "-" . time() . "-" . $randomStr . "." . $bukti_pembayaran->extension();
             $url = $bukti_pembayaran->storeAs($destination, $filename);
-            $this->bukti_pembayaran = "app/".$url;
+            $this->bukti_pembayaran = "app/" . $url;
             $this->save;
         }
     }
-    function handleDeleteFoto(){
-       $bukti_pembayaran= $this->bukti_pembayaran;
-        if($bukti_pembayaran){
+    function handleDeleteFoto()
+    {
+        $bukti_pembayaran = $this->bukti_pembayaran;
+        if ($bukti_pembayaran) {
             $path = public_path($bukti_pembayaran);
-            if(file_exists($path)){
+            if (file_exists($path)) {
                 unlink($path);
             }
             return true;
         }
     }
 
-    function tglIndo(){
+    function tglIndo()
+    {
         $tanggal = Carbon::parse($this->created_at);
 
         return $tanggal->translatedFormat('l, j F Y');
     }
-    function jamIndo(){
+    function jamIndo()
+    {
         $created_at = $this->created_at;
         $jam = $created_at->format('H:i:s'); // Format jam: HH:MM:SS
         return $jam;
     }
 
-    public static function boot(){
+    public static function boot()
+    {
         parent::boot();
 
         static::creating(function ($cart) {
@@ -89,7 +97,8 @@ class Transaksi extends Model
         });
     }
 
-    private function generateCartCode(){
+    private function generateCartCode()
+    {
         // Mendapatkan tahun saat ini
         $year = date('d');
 

@@ -82,7 +82,7 @@
                     <br>
                     <br>
                     <br>
-                    <div class="widget widget-collapsible">
+                    <!-- <div class="widget widget-collapsible">
                         <form action="{{ url('shop/filter2') }}" method="POST">
                             @csrf
                             <div class="form-group">
@@ -96,7 +96,7 @@
                             <br>
                             <button class="btn btn-dark float-right"></i>Filter</button>
                         </form>
-                    </div><!-- End .widget -->
+                    </div>End .widget -->
 
                 </div><!-- End .sidebar-filter-wrapper -->
             </aside><!-- End .sidebar-filter -->

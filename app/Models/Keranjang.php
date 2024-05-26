@@ -34,26 +34,32 @@ class Keranjang extends Model
         'banyak_produk.required'  => 'Harus diisi, tidak bolh kosong !',
     ];
 
-    function konsumen(){
-        return $this->belongsTo(Konsumen::class, 'id_konsumen', 'id');
-    }
-    function produk(){
-        return $this->belongsTo(Produk::class, 'id_produk', 'id');
+    function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
-    function tglIndo(){
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'id_produk');
+    }
+
+    function tglIndo()
+    {
         $tanggal = Carbon::parse($this->created_at);
 
         return $tanggal->translatedFormat('l, j F Y');
     }
 
-    function jamIndo(){
+    function jamIndo()
+    {
         $created_at = $this->created_at;
         $jam = $created_at->format('H:i:s'); // Format jam: HH:MM:SS
         return $jam;
     }
 
-    public static function boot(){
+    public static function boot()
+    {
         parent::boot();
 
         static::creating(function ($cart) {
@@ -61,7 +67,8 @@ class Keranjang extends Model
         });
     }
 
-    private function generateCartCode(){
+    private function generateCartCode()
+    {
         // Mendapatkan tahun saat ini
         $year = date('Y');
 

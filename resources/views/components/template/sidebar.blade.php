@@ -1,7 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4 bg-slate-900">
   <!-- Brand Logo -->
-  <a href="#" class="brand-link flex items-center justify-center">
-    <span class="brand-text font-weight-light">SIAMPLANG</span>
+  <a href="{{ url('dashboard') }}" class="brand-link">
+    <img src="{{ url('public') }}/dist/img/logo-ico.png" alt="Logo" class="brand-image img-circle" style="opacity: .8">
+    <span class="brand-text font-weight-bold">Amplang Kite</span>
   </a>
 
   <!-- Sidebar -->
@@ -31,16 +32,16 @@
         </li>
 
         <!-- Payment -->
-        <li class="nav-item ">
+        <!-- <li class="nav-item ">
           <a href=" {{ url('admin/konsumen') }}" class="nav-link {{request()->is('admin/konsumen') ? 'active' : ''}}">
             <i class=" nav-icon fas fa-user-tag"></i>
             <p>
               Data Konsumen
             </p>
           </a>
-        </li>
+        </li> -->
 
-        <!-- Payment -->
+        <!-- Payment
         <li class="nav-item ">
           <a href=" {{ url('admin/keranjang') }}" class="nav-link {{request()->is('admin/keranjang') ? 'active' : ''}}">
             <i class=" nav-icon	fas fa-shopping-cart"></i>
@@ -48,7 +49,7 @@
               Data Keranjang
             </p>
           </a>
-        </li>
+        </li> -->
 
         <li class="nav-item ">
           <a href=" {{ url('admin/transaksi') }}" class="nav-link {{request()->is('admin/transaksi') ? 'active' : ''}}">

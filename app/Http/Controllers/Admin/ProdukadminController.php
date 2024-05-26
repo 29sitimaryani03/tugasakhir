@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Galeri;
+use App\Models\Keranjang;
+use Illuminate\Support\Facades\Auth;
 
 class ProdukadminController extends Controller
 {
@@ -145,4 +147,6 @@ class ProdukadminController extends Controller
         }
         return true;
     }
+
+    
 }

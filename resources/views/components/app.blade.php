@@ -4,7 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ADMIN || SIAMPLANG </title>
+    @php
+    $logo = app('App\Http\Controllers\Admin\LogoController')->getLogo();
+    @endphp
+    @if($logo && is_string($logo->url_ico))
+    <link rel="shortcut icon" href="{{ url('public') }}/{{ $logo->url_ico }}">
+    @else
+    @endif
+
+    @if($logo)
+    <title>{{$logo->name}} | ADMIN</title>
+    @else
+    <!-- Jika data logo kosong, Anda dapat menampilkan logo default atau pesan lain -->
+    <title>ADMIN</title>
+    @endif
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

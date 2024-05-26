@@ -77,9 +77,9 @@ class Produk extends Model
         return $this->hasMany(Galeri::class, 'id_produk');
     }
 
-    function keranjang()
+    public function keranjang()
     {
-        return $this->belongsTo(Keranjang::class, 'id_produk');
+        return $this->hasMany(Keranjang::class, 'id_produk');
     }
 
     function rupiah()

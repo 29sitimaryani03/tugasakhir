@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Produk;
 use App\Models\Konsumen;
 use App\Models\Keranjang;
-
+use Illuminate\Support\Facades\Auth;
 
 class KeranjangadminController extends Controller
 {
@@ -44,7 +44,7 @@ class KeranjangadminController extends Controller
             $keranjang = new Keranjang;
             $keranjang->kode_keranjang = $request->kode_keranjang;
             $keranjang->id_produk = $request->id_produk[$i];
-            $keranjang->id_konsumen = $request->id_konsumen;
+            $keranjang->id_user = $request->id_user;
             $keranjang->banyak_produk = $request->banyak_produk[$i];
             $keranjang->jumlah_harga = $jumlah_harga;
             $simpan = $keranjang->save();
@@ -83,6 +83,61 @@ class KeranjangadminController extends Controller
             }
         } else {
             return "produk belum dipilih";
+        }
+    }
+
+    public function tambahKeKeranjang($id_produk)
+    {
+        // Cek apakah produk sudah ada di keranjang
+        $keranjang = Keranjang::where('id_produk', $id_produk)->first();
+
+        if ($keranjang) {
+            // Jika produk sudah ada di keranjang, tingkatkan jumlah produknya
+            $keranjang->update([
+                'banyak_produk' => $keranjang->banyak_produk + 1 // Atau sesuaikan dengan kuantitas tambahan yang diinginkan
+            ]);
+        } else {
+            // Jika produk belum ada di keranjang, tambahkan produk baru
+            Keranjang::create([
+                'id_produk' => $id_produk,
+                'banyak_produk' => 1 // Atau sesuaikan dengan kuantitas awal yang diinginkan
+            ]);
+        }
+
+        // Redirect atau kembali ke halaman keranjang
+        return redirect()->route('keranjang.index')->with('success', 'Produk berhasil ditambahkan ke keranjang.');
+    }
+
+    public function addToCart(Request $request)
+    {
+        // Periksa apakah pengguna sudah login
+        if (Auth::check()) {
+            $user_id = Auth::id();
+
+            // Periksa apakah produk sudah ada dalam keranjang pengguna
+            $existing_cart = Keranjang::where('id_user', $user_id)
+                ->where('id_produk', $request->id_produk)
+                ->first();
+
+            if ($existing_cart) {
+                // Jika produk sudah ada dalam keranjang, tingkatkan kuantitas dan jumlah harga
+                $existing_cart->increment('banyak_produk', $request->banyak_produk);
+                $existing_cart->jumlah_harga += $request->harga_produk * $request->banyak_produk;
+                $existing_cart->save();
+                return redirect('cart')->with('success', 'Kuantitas produk berhasil diperbarui dalam keranjang!');
+            } else {
+                // Jika produk belum ada dalam keranjang, tambahkan produk baru ke keranjang
+                $cart = new Keranjang();
+                $cart->id_user = $user_id;
+                $cart->id_produk = $request->id_produk;
+                $cart->banyak_produk = $request->banyak_produk;
+                $cart->jumlah_harga = $request->harga_produk * $request->banyak_produk;
+                $cart->save();
+                return redirect('cart')->with('success', 'Produk berhasil ditambahkan ke keranjang!');
+            }
+        } else {
+            // Jika pengguna belum login, kembalikan pesan untuk login
+            return back()->with('danger', 'Silakan login terlebih dahulu untuk menambahkan produk ke keranjang!');
         }
     }
 }

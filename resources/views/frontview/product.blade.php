@@ -63,28 +63,25 @@
                             <div class="product-content">
                                 <div> {!! $produk->deskripsi_produk !!}</div>
                             </div><!-- End .product-content -->
-                            <div class="details-filter-row details-row-size">
-                                <label for="qty">Qty:</label>
-                                <div class="product-details-quantity">
-                                    <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                </div><!-- End .product-details-quantity -->
-                            </div><!-- End .details-filter-row -->
-                            <div class="product-details-action-container">
-                                <div class="product-details-action">
-                                    <form action="{{ url('add_to_cart') }}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="foto" value="{{ url('public') }}/{{$produk->galeri[0]->gambar}}">
-                                        <input type="hidden" name="harga" value="{{$produk->harga}}">
-                                        <input type="hidden" name="nama" value="{{$produk->nama}}">
-                                        <input type="hidden" name="produk_uuid" value="{{$produk->uuid}}">
+                            <form action="{{ url('add_to_cart') }}" method="post">
+                                @csrf
+                                <div class="details-filter-row details-row-size">
+                                    <label for="qty">Qty:</label>
+                                    <div class="product-details-quantity">
+                                        <input type="number" id="qty" name="banyak_produk" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                                    </div><!-- End .product-details-quantity -->
+                                    <input type="hidden" name="id_produk" value="{{ $produk->id }}">
+                                    <input type="hidden" name="harga_produk" value="{{$produk->harga_produk}}">
+                                </div><!-- End .details-filter-row -->
+                                <div class="product-details-action-container">
+                                    <div class="product-details-action">
                                         <button class="btn btn-product btn-cart"><span>Tambah Keranjang</span></button>
-                                    </form>
-                                    <div class="product-details-action m-3">
-                                        <a href="{{ url('checkout')}}" class="btn btn-outline-primary-2 btn-order ">CHECKOUT</a>
+                                        <div class="product-details-action m-3">
+                                            <button class="btn btn-outline-primary-2 btn-order ">BELI</button>
+                                        </div><!-- End .product-details-action -->
                                     </div><!-- End .product-details-action -->
-                                </div><!-- End .product-details-action -->
-                            </div><!-- End .product-details-action-container -->
-
+                                </div><!-- End .product-details-action-container -->
+                            </form>
                             <div class="product-details-footer">
                                 <div class="social-icons social-icons-sm">
                                     <span class="social-label">Share:</span>
