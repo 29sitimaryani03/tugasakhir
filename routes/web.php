@@ -17,14 +17,6 @@ Route::get('/tugasakhir/vendor/livewire/livewire.js', function () {
   return response()->file(asset('vendor/livewire/livewire.js'));
 });
 
-// Route::prefix('/')->group(function () {
-//   include __DIR__ . '/_group/Landingrouter.php';
-// });
-
-// Route::prefix('konsumen')->middleware(['auth:konsumen'])->group(function () {
-//   include __DIR__ . '/_group/Konsumenrouter.php';
-// });
-
 // Login
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'loginProcess']);
