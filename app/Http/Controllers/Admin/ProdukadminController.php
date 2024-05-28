@@ -50,7 +50,7 @@ class ProdukadminController extends Controller
                     $img->storeAs('produk/', $nama_gambar);
                 }
             }
-            return redirect('admin/produk')->with('success', 'Produk berhasil ditambahkan !');
+            return redirect('admin/produk/')->with('success', 'Produk berhasil ditambahkan !');
         } else {
             return back()->with('danger', 'Produk gagal ditambahkan !');
         }
@@ -68,47 +68,44 @@ class ProdukadminController extends Controller
             'produk' => Produk::findOrFail($id),
         ]);
     }
-    function update(Request $request, Produk $id)
+
+    public function update(Request $request, $id)
     {
-        $harga =  Str::of($request->harga_produk)->replace(['Rp ', '.'], '');
-        $produk = $id;
-        if ($request->thumbnail_produk != null) {
+        $harga = Str::of($request->harga_produk)->replace(['Rp ', '.'], '');
+        $produk = Produk::findOrFail($id);
+
+        if ($request->hasFile('thumbnail_produk')) {
             // Hapus thumbnail lama
             $hapus = $produk->handleDeleteFoto();
             if ($hapus) {
-                if (request('nama_produk')) $produk->nama_produk = request('nama_produk');
-                if (request('harga_produk')) $produk->harga_produk = $harga;
-                if (request('berat_produk')) $produk->berat_produk = request('berat_produk');
-                if (request('stok_produk')) $produk->stok_produk = request('stok_produk');
-                if (request('varian_produk')) $produk->varian_produk = request('varian_produk');
-                if (request('varian_rasa')) $produk->varian_rasa = request('varian_rasa');
-                if (request('thumbnail_produk')) $produk->handleUploadFoto();
-                if (request('deskripsi_produk')) $produk->deskripsi_produk = request('deskripsi_produk');
-                $edit = $produk->update();
-                if ($edit) {
-                    return redirect('admin/produk')->with('success', 'Produk berhasil diupdate !');
-                } else {
-                    return back()->with('danger', 'Produk gagal diupdate !');
-                }
+                $this->updateProductAttributes($request, $produk, $harga);
+                $produk->handleUploadFoto();
             } else {
-                return back()->with('danger', 'Produk gagal diupdate !');
+                return back()->with('danger', 'Produk gagal diupdate!');
             }
         } else {
-            if (request('nama_produk')) $produk->nama_produk = request('nama_produk');
-            if (request('harga_produk')) $produk->harga_produk = $harga;
-            if (request('berat_produk')) $produk->berat_produk = request('berat_produk');
-            if (request('stok_produk')) $produk->stok_produk = request('stok_produk');
-            if (request('varian_produk')) $produk->varian_produk = request('varian_produk');
-            if (request('varian_rasa')) $produk->varian_rasa = request('varian_rasa');
-            if (request('deskripsi_produk')) $produk->deskripsi_produk = request('deskripsi_produk');
-            $edit = $produk->update();
-            if ($edit) {
-                return redirect('admin/produk')->with('success', 'Produk berhasil diupdate !');
-            } else {
-                return back()->with('danger', 'Produk gagal diupdate !');
-            }
+            $this->updateProductAttributes($request, $produk, $harga);
+        }
+
+        $edit = $produk->update();
+        if ($edit) {
+            return redirect('admin/produk/')->with('success', 'Produk berhasil diupdate!');
+        } else {
+            return back()->with('danger', 'Produk gagal diupdate!');
         }
     }
+
+    private function updateProductAttributes(Request $request, $produk, $harga)
+    {
+        if ($request->filled('nama_produk')) $produk->nama_produk = $request->nama_produk;
+        if ($request->filled('harga_produk')) $produk->harga_produk = $harga;
+        if ($request->filled('berat_produk')) $produk->berat_produk = $request->berat_produk;
+        if ($request->filled('stok_produk')) $produk->stok_produk = $request->stok_produk;
+        if ($request->filled('varian_produk')) $produk->varian_produk = $request->varian_produk;
+        if ($request->filled('varian_rasa')) $produk->varian_rasa = $request->varian_rasa;
+        if ($request->filled('deskripsi_produk')) $produk->deskripsi_produk = $request->deskripsi_produk;
+    }
+
 
     function destroy($id)
     {
@@ -147,6 +144,4 @@ class ProdukadminController extends Controller
         }
         return true;
     }
-
-    
 }

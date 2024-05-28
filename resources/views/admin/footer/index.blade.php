@@ -5,7 +5,8 @@
     </div>
     <div class="card mt-4">
         <div class="card-header">
-            <a href="" data-toggle="modal" data-target="#tambah-data" class="float-right btn btn-dark"><i class="fas fa-plus"></i> Tambah Data</a>
+            <a href="" data-toggle="modal" data-target="#tambah-data" class="float-right btn btn-dark"><i
+                    class="fas fa-plus"></i> Tambah Data</a>
         </div>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
@@ -16,20 +17,20 @@
                 </thead>
                 <tbody>
                     @foreach ($list_footer->sortByDesc('created_at')->values() as $footer)
-                    <tr>
-                        <td class="text-center">{{ $loop->iteration }}</td>
-                        <td class="text-center">
-                            <div>
-                                {!! $footer->text !!}
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <x-template.button.edit-button url="admin/footer" id="{{ $footer->id }}" />
-                                <x-template.button.delete-button url="admin/footer" id="{{ $footer->id }}" />
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">
+                                <div>
+                                    {!! $footer->text !!}
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <x-template.button.edit-button url="admin/footer" id="{{ $footer->id }}" />
+                                    <x-template.button.delete-button url="admin/footer" id="{{ $footer->id }}" />
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -52,9 +53,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>DESKRIPSI</label>
-                                <textarea class="form-control @error('text') is-invalid @enderror" name="text" id="summernote" cols="30" rows="7" required></textarea>
+                                <textarea class="form-control @error('text') is-invalid @enderror" name="text" id="summernote" cols="30"
+                                    rows="7" required></textarea>
                                 @error('text')
-                                <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
+                                    <p class="text-danger" style="font-size: 12px">* {{ $message }}</p
+                                        style="font-size: 12px">
                                 @enderror
                             </div>
                         </div>

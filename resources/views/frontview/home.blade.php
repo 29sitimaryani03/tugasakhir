@@ -8,16 +8,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    @if($logo && is_string($logo->url_ico))
-    <link rel="shortcut icon" href="{{ url('public') }}/{{ $logo->url_ico }}">
+    @if ($logo && is_string($logo->url_ico))
+        <link rel="shortcut icon" href="{{ url('public') }}/{{ $logo->url_ico }}">
     @else
     @endif
 
-    @if($logo)
-    <title>{{$logo->name}}</title>
+    @if ($logo)
+        <title>{{ $logo->name }}</title>
     @else
-    <!-- Jika data logo kosong, Anda dapat menampilkan logo default atau pesan lain -->
-    <title></title>
+        <!-- Jika data logo kosong, Anda dapat menampilkan logo default atau pesan lain -->
+        <title></title>
     @endif
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
@@ -61,90 +61,105 @@
             /* Warna lebih terang saat di-hover */
         }
     </style>
+
 </head>
 
 <body>
-    <div class="page-wrapper">
-        <header class="header header-5">
-            <div class="header-middle sticky-header">
-                <div class="container-fluid">
-                    <div class="header-left">
-                        <button class="mobile-menu-toggler">
-                            <span class="sr-only">Toggle mobile menu</span>
-                            <i class="icon-bars"></i>
-                        </button>
+    <div id="top-bar">
+        <div class="page-wrapper">
+            <header class="header header-5">
+                <div class="header-middle sticky-header">
+                    <div class="container-fluid">
+                        <div class="header-left">
+                            <button class="mobile-menu-toggler">
+                                <span class="sr-only">Toggle mobile menu</span>
+                                <i class="icon-bars"></i>
+                            </button>
 
-                        <a href="index.html" class="logo">
-                            @if($logo)
-                            <img src="{{ url('public') }}/{{ $logo->url_logo }}" alt="Logo" width="82" height="25" />
-                            @else
-
-                            @endif
-                        </a>
-
-                        <nav class="main-nav">
-                            <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="{{ url('home') }}">Home</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('shop') }}">Shop</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('pesan') }}">Order</a>
-                                </li>
-                            </ul><!-- End .menu -->
-                        </nav><!-- End .main-nav -->
-                    </div><!-- End .header-left -->
-
-                    <div class="header-right">
-                        <div class="header-search header-search-extended header-search-visible">
-                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
-                                <div class="header-search-wrapper">
-                                    <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Cari Produk ..." required>
-                                    <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                                </div><!-- End .header-search-wrapper -->
-                            </form>
-                        </div><!-- End .header-search -->
-                        <div class="dropdown cart-dropdown">
-                            <a href="{{ url('cart') }}" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <i class="icon-shopping-cart"></i>
+                            <a href="index.html" class="logo">
+                                @if ($logo)
+                                    <img src="{{ url('public') }}/{{ $logo->url_logo }}" alt="Logo" width="82"
+                                        height="25" />
+                                @else
+                                @endif
                             </a>
-                        </div>
-                        <br>
-                        <nav class="main-nav ml-7">
-                            <ul class="menu sf-arrows">
-                                <li class="mr-0 ml-4">
-                                    @if(Auth::check())
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle white-text" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ request()->user()->nama }}
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" style="font-size: medium;" href="{{ url('profile') }}">Profile</a>
-                                            <a class="dropdown-item" style="font-size: medium;" href="{{ url('settings') }}">Settings</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" style="font-size: medium;" href="{{ url('logout') }}" onclick="return confirm('Apakah anda yakin akan logout ?')">Logout</a>
-                                        </div>
-                                    </div>
-                                    @else
-                                    <a href="{{ url('login') }}">Login</a>
-                                    @endif
-                                </li>
-                            </ul>
-                        </nav><!-- End .main-nav -->
-                    </div><!-- End .header-right -->
-                </div><!-- End .container-fluid -->
-            </div><!-- End .header-middle -->
+
+                            <nav class="main-nav">
+                                <ul class="menu sf-arrows">
+                                    <li class="megamenu-container active">
+                                        <a href="{{ url('home') }}">Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('shop') }}">Shop</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('pesan') }}">Order</a>
+                                    </li>
+                                </ul><!-- End .menu -->
+                            </nav><!-- End .main-nav -->
+                        </div><!-- End .header-left -->
+
+                        <div class="header-right">
+                            <div class="header-search header-search-extended header-search-visible">
+                                <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                                <form action="#" method="get">
+                                    <div class="header-search-wrapper">
+                                        <label for="q" class="sr-only">Search</label>
+                                        <input type="search" class="form-control" name="q" id="q"
+                                            placeholder="Cari Produk ..." required>
+                                        <button class="btn btn-primary" type="submit"><i
+                                                class="icon-search"></i></button>
+                                    </div><!-- End .header-search-wrapper -->
+                                </form>
+                            </div><!-- End .header-search -->
+                            <div class="dropdown cart-dropdown">
+                                <a href="{{ url('cart') }}" class="dropdown-toggle" role="button"
+                                    aria-haspopup="true" aria-expanded="false" data-display="static">
+                                    <i class="icon-shopping-cart"></i>
+                                </a>
+                            </div>
+                            <br>
+                            <nav class="main-nav ml-7">
+                                <ul class="menu sf-arrows">
+                                    <li class="mr-0 ml-4">
+                                        @if (Auth::check())
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-toggle white-text"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    {{ request()->user()->nama }}
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                    <a class="dropdown-item" style="font-size: medium;"
+                                                        href="{{ url('profile') }}">Profile</a>
+                                                    <a class="dropdown-item" style="font-size: medium;"
+                                                        href="{{ url('settings') }}">Settings</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" style="font-size: medium;"
+                                                        href="{{ url('logout') }}"
+                                                        onclick="return confirm('Apakah anda yakin akan logout ?')">Logout</a>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <a href="{{ url('login') }}">Login</a>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </nav><!-- End .main-nav -->
+                        </div><!-- End .header-right -->
+                    </div><!-- End .container-fluid -->
+                </div><!-- End .header-middle -->
+        </div>
         </header><!-- End .header -->
 
         <main class="main">
             <div class="intro-slider-container mb-0">
-                <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{"nav": false, "dots": false}'>
-                    <div class="intro-slide" style="position: relative; background-image: url({{ url('public') }}/{{ $banner->url_banner }}); background-size: cover; background-position: center;">
-                        <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);"></div>
+                <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl"
+                    data-owl-options='{"nav": false, "dots": false}'>
+                    <div class="intro-slide"
+                        style="position: relative; background-image: url({{ url('public') }}/{{ $banner->url_banner }}); background-size: cover; background-position: center;">
+                        <div class="overlay"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+                        </div>
                         <div class="container intro-content text-center" style="position: relative; z-index: 1;">
                             <h1 class="intro-title text-white">Amplang Kite</h1><!-- End .intro-title -->
                             <br>
@@ -158,42 +173,53 @@
 
             <div class="container pt-6 new-arrivals">
                 <div class="heading heading-center mb-3">
-                    <h2 class="title">New Arrivals</h2><!-- End .title -->
+                    <h2 class="title">Produk Kami</h2><!-- End .title -->
                 </div><!-- End .heading -->
 
                 <div class="tab-content">
-                    <div class="tab-pane p-0 fade show active" id="new-all-tab" role="tabpanel" aria-labelledby="new-all-link">
+                    <div class="tab-pane p-0 fade show active" id="new-all-tab" role="tabpanel"
+                        aria-labelledby="new-all-link">
                         <div class="products">
                             <div class="row justify-content-center">
                                 @foreach ($list_produk as $produk)
-                                <div class="col-6 col-md-4 col-lg-3 mb-3">
-                                    <div class="product product-2">
-                                        <figure class="product-media">
-                                            <a href="{{ url('product', $produk->id) }}">
-                                                <img src="{{ url('public', $produk->thumbnail_produk) }}" alt="Product image" class="product-image" style="height: 280px; object-fit: cover;">
-                                                <img src="{{ url('public', $produk->thumbnail_produk) }}" alt="Product image" class="product-image-hover" style="height: 280px; object-fit: cover;">
-                                            </a>
+                                    <div class="col-6 col-md-4 col-lg-3 mb-3">
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                                <a href="{{ url('product', $produk->id) }}">
+                                                    <img src="{{ url('public', $produk->thumbnail_produk) }}"
+                                                        alt="Product image" class="product-image"
+                                                        style="height: 280px; object-fit: cover;">
+                                                    <img src="{{ url('public', $produk->thumbnail_produk) }}"
+                                                        alt="Product image" class="product-image-hover"
+                                                        style="height: 280px; object-fit: cover;">
+                                                </a>
 
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"><span>add to wishlist</span></a>
-                                            </div><!-- End .product-action -->
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist"
+                                                        title="Add to wishlist"><span>add to wishlist</span></a>
+                                                </div><!-- End .product-action -->
 
-                                            <div class="product-action product-action-transparent">
-                                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                            </div><!-- End .product-action -->
-                                        </figure><!-- End .product-media -->
+                                                <div class="product-action product-action-transparent">
+                                                    <a href="{{ url('product') }}"
+                                                        class="btn-product btn-cart"><span>add to
+                                                            cart</span></a>
+                                                </div><!-- End .product-action -->
+                                            </figure><!-- End .product-media -->
 
-                                        <div class="product-body">
-                                            <h3 class="product-title" style="font-size: large; font-weight:500;"><a href="{{url('product', $produk->id)}}">{{$produk->nama_produk}}</a></h3><!-- End .product-title -->
-                                            <div class="product-price">
-                                                Stok : {{$produk->stok_produk}}
-                                            </div><!-- End .product-price -->
-                                            <div class="product-price">
-                                                Rp. {{number_format($produk->harga_produk)}}
-                                            </div><!-- End .product-price -->
-                                        </div><!-- End .product-body -->
-                                    </div><!-- End .product -->
-                                </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+                                            <div class="product-body">
+                                                <h3 class="product-title" style="font-size: large; font-weight:500;">
+                                                    <a
+                                                        href="{{ url('product', $produk->id) }}">{{ $produk->nama_produk }}</a>
+                                                </h3><!-- End .product-title -->
+                                                <div class="product-price">
+                                                    Stok : {{ $produk->stok_produk }}
+                                                </div><!-- End .product-price -->
+                                                <div class="product-price">
+                                                    Rp. {{ number_format($produk->harga_produk) }}
+                                                </div><!-- End .product-price -->
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .product -->
+                                    </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
                                 @endforeach
                             </div><!-- End .row -->
                         </div><!-- End .products -->
@@ -207,10 +233,13 @@
 
             <div class="mb-5"></div><!-- End .mb-5 -->
 
-            <div class="video-banner video-banner-bg bg-image text-center" style="background-image: url({{ url('public') }}/front/assets/images/demos/demo-5/bg-2.jpg)">
+            <div class="video-banner video-banner-bg bg-image text-center"
+                style="background-image: url({{ url('public') }}/front/assets/images/demos/demo-5/bg-2.jpg)">
                 <div class="container">
-                    <h3 class="video-banner-title h1 text-white"><span>New Collection</span><strong>Winter’19 <i>/</i> Spring’20</strong></h3><!-- End .video-banner-title -->
-                    <a href="https://www.youtube.com/watch?v=vBPgmASQ1A0" class="btn-video btn-iframe"><i class="icon-play"></i></a>
+                    <h3 class="video-banner-title h1 text-white"><span>New Collection</span><strong>Winter’19 <i>/</i>
+                            Spring’20</strong></h3><!-- End .video-banner-title -->
+                    <a href="https://www.youtube.com/watch?v=vBPgmASQ1A0" class="btn-video btn-iframe"><i
+                            class="icon-play"></i></a>
                 </div><!-- End .container -->
             </div><!-- End .video-banner bg-image -->
         </main><!-- End .main -->
@@ -278,13 +307,14 @@
                     <div class="row">
                         <div class="col-sm-6 col-lg-3">
                             <div class="widget widget-about">
-                                @if($logo)
-                                <img class="footer-logo" alt="Footer Logo" width="82" height="25" src="{{ url('public') }}/{{ $logo->url_logo }}" alt="..." />
+                                @if ($logo)
+                                    <img class="footer-logo" alt="Footer Logo" width="82" height="25"
+                                        src="{{ url('public') }}/{{ $logo->url_logo }}" alt="..." />
                                 @else
                                 @endif
                                 <div>
-                                    @if($footer)
-                                    {!! $footer->text !!}
+                                    @if ($footer)
+                                        {!! $footer->text !!}
                                     @else
                                     @endif
                                 </div>
@@ -295,10 +325,10 @@
                             <div class="widget">
                                 <h4 class="widget-title">Link Media Sosial</h4><!-- End .widget-title -->
                                 <ul class="widget-list">
-                                    @foreach($sosmed as $s)
-                                    <li>
-                                        <a href="{{ $s->link }}">{{ $s->name }}</a>
-                                    </li>
+                                    @foreach ($sosmed as $s)
+                                        <li>
+                                            <a href="{{ $s->link }}">{{ $s->name }}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div><!-- End .widget -->
@@ -326,8 +356,8 @@
                 <div class="container">
                     <p class="footer-copyright">
                         Copyright © 2024
-                        @if($logo)
-                        <a href="#"> {{ $logo->name }}</a>
+                        @if ($logo)
+                            <a href="#"> {{ $logo->name }}</a>
                         @else
                         @endif
                         All Rights Reserved
@@ -347,7 +377,8 @@
 
             <form action="#" method="get" class="mobile-search">
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="Search in..." required>
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
 
@@ -390,10 +421,12 @@
                             <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
                             <li><a href="category.html">Shop Grid 3 Columns</a></li>
                             <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
-                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
+                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span
+                                            class="tip tip-hot">Hot</span></span></a></li>
                             <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
                             <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
-                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span
+                                            class="tip tip-new">New</span></span></a></li>
                             <li><a href="cart.html">Cart</a></li>
                             <li><a href="checkout.html">Checkout</a></li>
                             <li><a href="wishlist.html">Wishlist</a></li>
@@ -405,7 +438,8 @@
                         <ul>
                             <li><a href="product.html">Default</a></li>
                             <li><a href="product-centered.html">Centered</a></li>
-                            <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="product-extended.html"><span>Extended Info<span
+                                            class="tip tip-new">New</span></span></a></li>
                             <li><a href="product-gallery.html">Gallery</a></li>
                             <li><a href="product-sticky.html">Sticky Info</a></li>
                             <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
@@ -502,10 +536,14 @@
             </nav><!-- End .mobile-nav -->
 
             <div class="social-icons">
-                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Facebook"><i
+                        class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Twitter"><i
+                        class="icon-twitter"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Instagram"><i
+                        class="icon-instagram"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Youtube"><i
+                        class="icon-youtube"></i></a>
             </div><!-- End .social-icons -->
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
