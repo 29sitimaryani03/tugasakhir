@@ -21,7 +21,7 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td class="text-center">{{ $logo->name }}</td>
                         <td class="text-center">
-                            <img src="{{ url($logo->url_logo) }}" alt="{{ $logo->name }}" style="max-width: 80px; max-height: 50px;">
+                            <img src="{{ url('public') }}/{{ $logo->url_logo }}" alt="{{ $logo->name }}" style="max-width: 80px; max-height: 50px;">
                         </td>
                         <td class="text-center">
                             <div class="btn-group">

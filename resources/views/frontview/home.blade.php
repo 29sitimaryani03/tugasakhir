@@ -201,8 +201,7 @@
 
                                                 <div class="product-action product-action-transparent">
                                                     <a href="{{ url('product') }}"
-                                                        class="btn-product btn-cart"><span>add to
-                                                            cart</span></a>
+                                                        class="btn-product btn-cart"><span>Tambah Keranjang</span></a>
                                                 </div><!-- End .product-action -->
                                             </figure><!-- End .product-media -->
 
