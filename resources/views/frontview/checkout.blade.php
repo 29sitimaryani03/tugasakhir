@@ -6,8 +6,8 @@
                     <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                 </ol>
-            </div><!-- End .container -->
-        </nav><!-- End .breadcrumb-nav -->
+            </div>
+        </nav>
 
         <div class="page-content">
             <div class="checkout">
@@ -16,10 +16,11 @@
                         @csrf
                         <div class="row">
                             <div class="col-lg-9">
-                                <h2 class="checkout-title">CheckOut</h2><!-- End .checkout-title -->
+                                <h2 class="checkout-title">CheckOut</h2>
 
                                 <label>Alamat *</label>
-                                <input type="text" class="form-control" name="alamat" placeholder="Alamat Lengkap" required>
+                                <input type="text" class="form-control" name="alamat" placeholder="Alamat Lengkap"
+                                    required>
                                 <input type="hidden" name="id_produk" value="{{ $cart->id_produk }}">
                                 <input type="hidden" name="banyak_produk" value="{{ $cart->banyak_produk }}">
                                 <input type="hidden" name="jumlah_harga" value="{{ $cart->jumlah_harga }}">
@@ -35,12 +36,12 @@
                                 </select>
 
                                 <label>Tinggalkan Pesan (optional)</label>
-                                <textarea class="form-control" name="pesan" cols="30" rows="4" placeholder="Catatan tentang pesanan Anda, mis. catatan khusus untuk pengiriman"></textarea>
-                            </div><!-- End .col-lg-9 -->
+                                <textarea class="form-control" name="pesan" cols="30" rows="4"
+                                    placeholder="Catatan tentang pesanan Anda, mis. catatan khusus untuk pengiriman"></textarea>
+                            </div>
                             <aside class="col-lg-3">
                                 <div class="summary">
-                                    <h3 class="summary-title">Ringkasan Belanja</h3><!-- End .summary-title -->
-
+                                    <h3 class="summary-title">Ringkasan Belanja</h3>
                                     <table class="table table-summary">
                                         <thead>
                                             <tr>
@@ -52,21 +53,22 @@
 
                                         <tbody>
                                             <tr>
-                                                <td><a href="{{ url('product', $cart->id_produk) }}">{{$cart->produk->nama_produk}}</a></td>
-                                                <td class="text-center">{{$cart->banyak_produk}}</td>
-                                                <td>Rp. {{number_format($cart->jumlah_harga)}}</td>
+                                                <td><a
+                                                        href="{{ url('product', $cart->id_produk) }}">{{ $cart->produk->nama_produk }}</a>
+                                                </td>
+                                                <td class="text-center">{{ $cart->banyak_produk }}</td>
+                                                <td>Rp. {{ number_format($cart->jumlah_harga) }}</td>
                                             </tr>
                                             <tr class="summary-total">
                                                 <td>Total:</td>
                                                 <td class="text-center"></td>
-                                                <td>Rp. {{number_format($cart->jumlah_harga)}}</td>
-                                            </tr><!-- End .summary-total -->
+                                                <td>Rp. {{ number_format($cart->jumlah_harga) }}</td>
+                                            </tr>
                                         </tbody>
-                                    </table><!-- End .table table-summary -->
-
-                                    <input type="hidden" name="harga" value="{{$cart->harga}}">
-                                    <input type="hidden" name="nama_produk" value="{{$cart->nama}}">
-                                    <input type="hidden" name="produk_id" value="{{$cart->id}}">
+                                    </table>
+                                    <input type="hidden" name="harga" value="{{ $cart->harga }}">
+                                    <input type="hidden" name="nama_produk" value="{{ $cart->nama }}">
+                                    <input type="hidden" name="produk_id" value="{{ $cart->id }}">
                                     <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
                                         <span class="btn-text">Pesan</span>
                                         <span class="btn-hover-text">Proses CheckOut</span>

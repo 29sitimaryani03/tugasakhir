@@ -61,6 +61,7 @@ class ProdukadminController extends Controller
         $data['list'] = Produk::with('galeri')->where('id', $id)->get();
         return view('admin.produk.show', $data);
     }
+    
 
     public function edit($id)
     {

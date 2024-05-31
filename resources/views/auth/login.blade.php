@@ -8,16 +8,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    @if($logo && is_string($logo->url_ico))
-    <link rel="shortcut icon" href="{{ url('public') }}/{{ $logo->url_ico }}">
+    @if ($logo && is_string($logo->url_ico))
+        <link rel="shortcut icon" href="{{ url('public') }}/{{ $logo->url_ico }}">
     @else
     @endif
 
-    @if($logo)
-    <title>{{$logo->name}}</title>
+    @if ($logo)
+        <title>{{ $logo->name }}</title>
     @else
-    <!-- Jika data logo kosong, Anda dapat menampilkan logo default atau pesan lain -->
-    <title></title>
+        <!-- Jika data logo kosong, Anda dapat menampilkan logo default atau pesan lain -->
+        <title></title>
     @endif
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
@@ -45,31 +45,37 @@
 
 
         <main class="main">
-            <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('public/front/assets/images/backgrounds/bg.jpg')">
+            <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
+                style="background-image: url('/'/front/assets/images/backgrounds/bg.jpg')">
                 <div class="container">
                     <div class="form-box">
                         <div class="form-tab">
                             <ul class="nav nav-pills nav-fill" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">Login</a>
+                                    <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2"
+                                        role="tab" aria-controls="signin-2" aria-selected="true">Login</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="register-tab-2" href="{{ url('regis') }}" role="tab" aria-controls="register-2" aria-selected="true">Daftar</a>
+                                    <a class="nav-link" id="register-tab-2" href="{{ url('regis') }}" role="tab"
+                                        aria-controls="register-2" aria-selected="true">Daftar</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+                                <div class="tab-pane fade show active" id="signin-2" role="tabpanel"
+                                    aria-labelledby="signin-tab-2">
                                     <x-template.utils.notif />
                                     <form action="{{ url('login') }}" method="POST">
                                         @csrf
                                         <div class="form-group">
                                             <label for="singin-email-2">Email</label>
-                                            <input type="email" class="form-control" id="singin-email-2" name="email" required>
+                                            <input type="email" class="form-control" id="singin-email-2"
+                                                name="email" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
                                             <label for="singin-password-2">Password</label>
-                                            <input type="password" class="form-control" id="singin-password-2" name="password" required>
+                                            <input type="password" class="form-control" id="singin-password-2"
+                                                name="password" required>
                                         </div><!-- End .form-group -->
                                         <div class="form-footer">
                                             <button type="submit" class="btn btn-outline-primary-2">
@@ -78,7 +84,8 @@
                                             </button>
 
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="signin-remember-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="signin-remember-2">
                                             </div><!-- End .custom-checkbox -->
 
                                             <!-- <a href="#" class="forgot-link">Forgot Your Password?</a> -->
@@ -103,7 +110,8 @@
 
             <form action="#" method="get" class="mobile-search">
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="Search in..." required>
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
 

@@ -42,8 +42,7 @@
                                                 @if ($produk->varian_produk == 'Stik Potong') selected @endif>Stik Potong</option>
                                             <option value="Stik Tipis"
                                                 @if ($produk->varian_produk == 'Stik Tipis') selected @endif>Stik Tipis</option>
-                                            <option value="Kapsul" @if ($produk->varian_produk == 'Kapsul') selected @endif>
-                                                Kapsul</option>
+                                            <option value="Kapsul" @if ($produk->varian_produk == 'Kapsul') selected @endif>Kapsul</option>
                                         </x-input.select>
                                     </div>
                                     <div class="col-md-4">
