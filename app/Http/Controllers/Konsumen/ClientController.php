@@ -76,11 +76,9 @@ class ClientController extends Controller
 
     function cart()
     {
-        $cart = Keranjang::count();
-        $user = request()->user();
-        $data['list_cart'] = $user->product;
+        $list_cart = Keranjang::with('produk')->where('id_user', auth()->id())->get();
 
-        return view('frontview.cart', $data, compact('cart'));
+        return view('frontview.cart', compact('list_cart'));
     }
 
     public function showCheckoutCart($id)
