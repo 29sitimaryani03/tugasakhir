@@ -43,9 +43,9 @@
                                 <span style="font-size: 15px; color: white;" class="font-weight-bold badge bg-warning">Di Proses..</span>
                                 @elseif($pesan->status_transaksi === 'Dikirim')
                                 <span style="font-size: 15px; color: white;" class="font-weight-bold badge bg-primary">Di Kirim</span>
-                                @elseif($pesan->status_transaksi === 'Tiba di Tujuan')
+                                @elseif($pesan->status_transaksi === 'Tiba Di Tujuan')
                                 <span style="font-size: 15px; color: white;" class="font-weight-bold badge bg-success">Tiba di Tujuan</span>
-                                @elseif($pesan->status_transaksi === 'Di Tolak')
+                                @elseif($pesan->status_transaksi === 'Ditolak')
                                 <span style="font-size: 15px; color: white;" class="font-weight-bold badge bg-danger">Di Tolak</span>
                                 @endif
                             </td>

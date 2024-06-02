@@ -35,7 +35,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('produk', ProdukadminController::class);
     Route::resource('konsumen', KonsumenadminController::class);
     Route::resource('keranjang', KeranjangadminController::class);
-    // Route::resource('transaksi', TransaksiadminController::class);
+    Route::resource('transaksi', TransaksiadminController::class);
     Route::resource('logo', LogoController::class);
     Route::resource('footer', FooterController::class);
     Route::resource('sosmed', SosmedController::class);

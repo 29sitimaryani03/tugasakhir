@@ -34,6 +34,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ url('public') }}/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="{{ url('public') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta3/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -103,6 +104,10 @@
     <script src="{{ url('public') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="{{ url('public') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="{{ url('public') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(function() {
             // Summernote
@@ -137,6 +142,7 @@
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
+                "ordering": true,
                 "autoWidth": false,
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $("#example4").DataTable({
@@ -150,6 +156,19 @@
             $("#example3").DataTable({
                 "responsive": true,
                 "lengthChange": false,
+                "ordering": true,
+                "autoWidth": false,
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $("#example5").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "ordering": true,
+                "autoWidth": false,
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $("#example6").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "ordering": true,
                 "autoWidth": false,
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -160,7 +179,7 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
-            });
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
     <script>
@@ -305,6 +324,12 @@
             myDropzone.removeAllFiles(true)
         }
         // DropzoneJS Demo Code End
+    </script>
+    <script>
+        function showImage(url) {
+            var modalImage = document.getElementById('modalImage');
+            modalImage.src = url;
+        }
     </script>
 </body>
 

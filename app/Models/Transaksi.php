@@ -15,7 +15,6 @@ class Transaksi extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'kode_transaksi',
-        'id_produk',
         'id_user',
         'banyak_produk',
         'jumlah_harga',
@@ -34,6 +33,11 @@ class Transaksi extends Model
     public function pembayaran()
     {
         return $this->belongsTo(Pembayaran::class, 'id_pembayaran');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
     }
 
     public function produk()

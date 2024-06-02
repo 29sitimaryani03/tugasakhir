@@ -187,7 +187,7 @@ class ClientController extends Controller
     {
         $transaksi = Transaksi::where('kode_transaksi', $kode_transaksi)->firstOrFail();
         if (request('bukti_pembayaran')) $transaksi->handleUploadFoto();
-        $transaksi->status_transaksi = 'Menunggu Konfirmasi';
+        $transaksi->status_transaksi = 'Diproses';
 
         $transaksi->save();
 
@@ -201,7 +201,7 @@ class ClientController extends Controller
             $produk->save();
         }
 
-        return redirect('order')->with('success', 'CheckOut Berhasil, Menunggu Konfirmasi');
+        return redirect('order')->with('success', 'CheckOut Berhasil!!');
     }
 
     public function confirm($kode_transaksi)

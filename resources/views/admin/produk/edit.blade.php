@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{ url('admin/produk') }}" class="btn btn-primary btn-tone btn-sm mt-4"><i class="fas fa-arrow-left"></i> Kembali</a>
+                    <a href="{{ url('admin/produk') }}" class="btn btn-primary btn-tone btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ url('admin/produk', $produk->id) }}" method="post" enctype="multipart/form-data">

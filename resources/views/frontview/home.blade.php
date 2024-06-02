@@ -92,7 +92,7 @@
                                         <a href="{{ url('shop') }}">Shop</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('pesan') }}">Order</a>
+                                        <a href="{{ url('order') }}">Order</a>
                                     </li>
                                 </ul><!-- End .menu -->
                             </nav><!-- End .main-nav -->

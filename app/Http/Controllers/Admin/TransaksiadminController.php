@@ -29,23 +29,24 @@ class TransaksiadminController extends Controller
     function store()
     {
     }
-    function show()
+    function show($transaksi)
     {
+        $transaksi = Transaksi::findOrFail($transaksi);
+
+        return view('admin.transaksi.show', compact('transaksi'));
     }
     function edit()
     {
     }
-    // function update($kode_transaksi)
-    // {
-    //     $transaksi = Transaksi::where('kode_transaksi', $kode_transaksi)->firstOrFail();
-    //     if (request('alamat')) $transaksi->alamat = request('alamat');
-    //     if (request('metode_pembayaran')) $transaksi->metode_pembayaran = request('metode_pembayaran');
-    //     if (request('pesan')) $transaksi->pesan = request('pesan');
+    function update($transaksi)
+    {
+        $transaksi = Transaksi::findOrFail($transaksi);
+        if (request('status_transaksi')) $transaksi->status_transaksi = request('status_transaksi');
 
-    //     $transaksi->save();
+        $transaksi->save();
 
-    //     return redirect()->back()->with('success', 'Permintaan Diproses');
-    // }
+        return redirect('admin/transaksi')->with('success', 'Berhasil!!');
+    }
     function delete()
     {
     }

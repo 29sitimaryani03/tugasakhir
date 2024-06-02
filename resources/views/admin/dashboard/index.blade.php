@@ -25,10 +25,9 @@
             <span class="info-box-icon bg-info elevation-1"><i class="fa fa-shopping-cart"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Items</span>
+              <span class="info-box-text">Pesanan Baru</span>
               <span class="info-box-number">
-                10
-                <small>%</small>
+                {{$proses}}
               </span>
             </div>
             <!-- /.info-box-content -->
@@ -41,8 +40,8 @@
             <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-truck"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Suppliers</span>
-              <span class="info-box-number">41,410</span>
+              <span class="info-box-text">Pesanan Dikirim</span>
+              <span class="info-box-number">{{$kirim}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -68,8 +67,8 @@
             <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-user-plus"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Users</span>
-              <span class="info-box-number">2,000</span>
+              <span class="info-box-text">Pengguna</span>
+              <span class="info-box-number">{{ $pengguna }}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
