@@ -67,6 +67,16 @@
             </p>
           </a>
         </li>
+
+        <!-- Payment -->
+        <li class="nav-item ">
+          <a href=" {{ url('admin/pembayaran') }}" class="nav-link {{request()->is('admin/pembayaran') ? 'active' : ''}}">
+            <i class=" nav-icon	fas fa-credit-card"></i>
+            <p>
+              Data Metode Pembayaran
+            </p>
+          </a>
+        </li>
         <li class="nav-header">SETTING DATA</li>
         <li class="nav-item">
           <a href="#" class="nav-link">

@@ -1,5 +1,9 @@
 <x-base>
-    <br>
+    <div class="page-header text-center" style="background-image: url('{{url('public')}}/front/assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Toko<span>Amplang Kite</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
     <br>
     <div class="page-content">
         <div class="container">
@@ -38,7 +42,7 @@
                                 </div><!-- End .product-action -->
 
                                 <div class="product-action product-action-transparent">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    <a href="{{ url('product', $produk->id) }}" class="btn-product btn-cart"><span>Tambah Keranjang</span></a>
                                 </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
 
@@ -46,22 +50,19 @@
                                 <h3 class="product-title" style="font-size: large; font-weight:500;"><a href="{{url('product', $produk->id)}}">{{$produk->nama_produk}}</a></h3><!-- End .product-title -->
                                 <div class="product-price">
                                     Stok : {{$produk->stok_produk}}
-                                </div><!-- End .product-price -->
+                                </div>
                                 <div class="product-price">
                                     Rp. {{number_format($produk->harga_produk)}}
-                                </div><!-- End .product-price -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-                    </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+                                </div>
+                            </div>
+                        </div><
+                    </div>
                     @endforeach
-                </div><!-- End .row -->
+                </div>
                 {{ $list_produk->links()}}
-                <div class="load-more-container text-center">
-                    <a href="#" class="btn btn-outline-darker btn-load-more">More Products <i class="icon-refresh"></i></a>
-                </div><!-- End .load-more-container -->
-            </div><!-- End .products -->
+            </div>
 
-            <div class="sidebar-filter-overlay"></div><!-- End .sidebar-filter-overlay -->
+            <div class="sidebar-filter-overlay"></div>
             <aside class="sidebar-shop sidebar-filter">
                 <div class="sidebar-filter-wrapper">
                     <div class="widget widget-clean">

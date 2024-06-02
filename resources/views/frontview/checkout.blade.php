@@ -1,82 +1,70 @@
 <x-base>
     <main class="main">
-        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="page-header text-center" style="background-image: url('{{url('public')}}/front/assets/images/page-header-bg.jpg')">
             <div class="container">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
-                </ol>
-            </div>
-        </nav>
+                <h1 class="page-title">CheckOut</span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <br>
 
         <div class="page-content">
             <div class="checkout">
                 <div class="container">
-                    <form action="{{ url('pesan') }}" method="post">
-                        @csrf
-                        <div class="row">
-                            <div class="col-lg-9">
-                                <h2 class="checkout-title">CheckOut</h2>
-
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <form action="{{ url('transaksi', $transaction->kode_transaksi) }}" method="post">
+                                @csrf
+                                @method('PUT')
                                 <label>Alamat *</label>
-                                <input type="text" class="form-control" name="alamat" placeholder="Alamat Lengkap"
-                                    required>
-                                <input type="hidden" name="id_produk" value="{{ $cart->id_produk }}">
-                                <input type="hidden" name="banyak_produk" value="{{ $cart->banyak_produk }}">
-                                <input type="hidden" name="jumlah_harga" value="{{ $cart->jumlah_harga }}">
-
+                                <input type="text" class="form-control" name="alamat" placeholder="Alamat Lengkap" required>
                                 <label>Pembayaran</label>
-                                <select name="metode_pembayaran" class="form-control">
+                                <select name="id_pembayaran" class="form-control">
                                     <option value="">Pilih Metode Pembayaran</option>
-                                    <option value="Alfamart">Alfamart</option>
-                                    <option value="Indomaret">Indomaret</option>
-                                    <option value="Cash On Delivery">Cash On Delivery</option>
-                                    <option value="Transfer">Transfer</option>
-                                    <option value="Bayar Langsung">Bayar Langsung</option>
+                                    @foreach($pembayaran as $p)
+                                    <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                                    @endforeach
                                 </select>
 
-                                <label>Tinggalkan Pesan (optional)</label>
-                                <textarea class="form-control" name="pesan" cols="30" rows="4"
-                                    placeholder="Catatan tentang pesanan Anda, mis. catatan khusus untuk pengiriman"></textarea>
-                            </div>
-                            <aside class="col-lg-3">
-                                <div class="summary">
-                                    <h3 class="summary-title">Ringkasan Belanja</h3>
-                                    <table class="table table-summary">
-                                        <thead>
-                                            <tr>
-                                                <th>Produk</th>
-                                                <th>Qty</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
+                                <label>Tinggalkan Pesan (opsional)</label>
+                                <textarea class="form-control" name="pesan" cols="30" rows="4" placeholder="Catatan tentang pesanan Anda, mis. catatan khusus untuk pengiriman"></textarea>
 
-                                        <tbody>
-                                            <tr>
-                                                <td><a
-                                                        href="{{ url('product', $cart->id_produk) }}">{{ $cart->produk->nama_produk }}</a>
-                                                </td>
-                                                <td class="text-center">{{ $cart->banyak_produk }}</td>
-                                                <td>Rp. {{ number_format($cart->jumlah_harga) }}</td>
-                                            </tr>
-                                            <tr class="summary-total">
-                                                <td>Total:</td>
-                                                <td class="text-center"></td>
-                                                <td>Rp. {{ number_format($cart->jumlah_harga) }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <input type="hidden" name="harga" value="{{ $cart->harga }}">
-                                    <input type="hidden" name="nama_produk" value="{{ $cart->nama }}">
-                                    <input type="hidden" name="produk_id" value="{{ $cart->id }}">
-                                    <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
-                                        <span class="btn-text">Pesan</span>
-                                        <span class="btn-hover-text">Proses CheckOut</span>
-                                    </button>
-                                </div><!-- End .summary -->
-                            </aside><!-- End .col-lg-3 -->
-                        </div><!-- End .row -->
-                    </form>
+                                <button type="submit" class="btn btn-outline-primary-2 btn-order">
+                                    <span class="btn-text">Pesan</span>
+                                    <span class="btn-hover-text">Proses CheckOut</span>
+                                </button>
+                            </form>
+                        </div><!-- End .col-lg-9 -->
+
+                        <aside class="col-lg-3">
+                            <div class="summary">
+                                <h3 class="summary-title">Ringkasan Belanja</h3>
+                                <table class="table table-summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Produk</th>
+                                            <th>Qty</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($transaction->items as $item)
+                                        <tr>
+                                            <td><a href="{{ url('product', $item->produk->id) }}">{{ $item->produk->nama_produk }}</a></td>
+                                            <td class="text-center">{{ $item->jumlah_produk }}</td>
+                                            <td>Rp. {{ number_format($item->harga_produk) }}</td>
+                                        </tr>
+                                        @endforeach
+                                        <tr class="summary-total">
+                                            <td>Total:</td>
+                                            <td class="text-center"></td>
+                                            <td>Rp. {{ number_format($transaction->jumlah_harga) }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- End .summary -->
+                        </aside><!-- End .col-lg-3 -->
+
+                    </div><!-- End .row -->
                 </div><!-- End .container -->
             </div><!-- End .checkout -->
         </div><!-- End .page-content -->

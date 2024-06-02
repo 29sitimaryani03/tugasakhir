@@ -56,12 +56,11 @@ class ProdukadminController extends Controller
         }
     }
 
-    function show($id)
+    public function show($id)
     {
-        $data['list'] = Produk::with('galeri')->where('id', $id)->get();
-        return view('admin.produk.show', $data);
+        $produk = Produk::with('galeri')->findOrFail($id);
+        return view('admin.produk.show', compact('produk'));
     }
-    
 
     public function edit($id)
     {

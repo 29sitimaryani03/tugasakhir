@@ -19,21 +19,6 @@ class Keranjang extends Model
         'jumlah_harga',
     ];
 
-    static $field = [
-        'kode_keranjang'  => 'required',
-        'id_produk'  => 'required',
-        'id_konsumen'  => 'required',
-        'banyak_produk'  => 'required',
-    ];
-
-    static $pesan = [
-        'kode_keranjang.required' => 'Harus diisi, tidak bolh kosong !',
-        'nama.required' => 'Harus diisi, tidak bolh kosong !',
-        'id_produk.required'  => 'Harus diisi, tidak bolh kosong !',
-        'id_konsumen.required'  => 'Harus diisi, tidak bolh kosong !',
-        'banyak_produk.required'  => 'Harus diisi, tidak bolh kosong !',
-    ];
-
     function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');

@@ -7,11 +7,14 @@ use App\Models\Banner;
 use App\Models\Footer;
 use App\Models\Keranjang;
 use App\Models\Logo;
+use App\Models\Pembayaran;
 use App\Models\Produk;
 use App\Models\Sosmed;
 use App\Models\Transaksi;
+use App\Models\TransaksiItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ClientController extends Controller
 {
@@ -24,30 +27,15 @@ class ClientController extends Controller
         return view('frontview.shop', $data);
     }
 
-    public function filter2()
+    public function getCartCount()
     {
-        $harga_min = request('harga_min');
-        $harga_max = request('harga_max');
-
-        // Lakukan validasi untuk memastikan harga minimum tidak melebihi harga maksimum
-        if ($harga_min > $harga_max) {
-            // Jika harga minimum melebihi harga maksimum, balikkan pengguna kembali dengan pesan kesalahan
-            return back()->with('error', 'Harga minimum tidak boleh melebihi harga maksimum.');
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $cartCount = Keranjang::where('id_user', $userId)->count();
+            return $cartCount;
         }
-
-        // Simpan harga minimum dan maksimum dalam array data
-        $data = [
-            'harga_min' => $harga_min,
-            'harga_max' => $harga_max
-        ];
-
-        // Query untuk mengambil produk berdasarkan rentang harga
-        $data['list_produk'] = Produk::whereBetween('harga_produk', [$harga_min, $harga_max])->paginate(3);
-
-        // Mengirimkan data ke tampilan
-        return view('frontview.shop', $data);
+        return 0;
     }
-
 
     function home()
     {
@@ -56,6 +44,7 @@ class ClientController extends Controller
         $footer = Footer::first();
         $sosmed = Sosmed::all();
         $banner = Banner::first();
+
         return view('frontview.home', $data, compact('logo', 'footer', 'sosmed', 'banner'));
     }
 
@@ -81,13 +70,6 @@ class ClientController extends Controller
         return view('frontview.cart', compact('list_cart'));
     }
 
-    public function showCheckoutCart($id)
-    {
-        return view('frontview.checkout', [
-            'cart' => Keranjang::findOrFail($id)
-        ]);
-    }
-
     function showPesan()
     {
         $user = Auth::user();
@@ -98,24 +80,135 @@ class ClientController extends Controller
         return view('frontview.order', $data);
     }
 
-    function pesanan()
+    public function checkout(Request $request)
     {
-        if (Auth::user()) {
-            $transaksi = new Transaksi();
-            $transaksi->id_user = request()->user()->id;
-            $transaksi->id_produk = request('id_produk');
-            $transaksi->banyak_produk = request('banyak_produk');
-            $transaksi->jumlah_harga = request('jumlah_harga');
+        // Pastikan pengguna telah login
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('danger', 'Anda harus login untuk melanjutkan checkout.');
+        }
+
+        // Validasi apakah ada produk yang dipilih untuk checkout
+        $selectedProducts = $request->input('selected_products');
+        if (empty($selectedProducts)) {
+            return redirect()->back()->with('danger', 'Pilih setidaknya satu produk sebelum checkout.');
+        }
+
+        $selectedProductsInfo = Keranjang::whereIn('id', $selectedProducts)->get();
+
+        // Hitung total harga dari produk yang dipilih
+        $totalHarga = $selectedProductsInfo->sum('jumlah_harga');
+
+        // Hitung banyak Produk
+        $banyakProduk = $selectedProductsInfo->sum('banyak_produk');
+
+        // Mulai transaksi dalam database
+        $transaction = new Transaksi();
+        $transaction->id_user = Auth::id();
+        $transaction->metode_pembayaran = $request->input('metode_pembayaran');
+        $randomString = strtoupper(substr(md5(time()), 0, 4));
+        $randomInvoiceNumber = mt_rand(100000, 999999);
+        $transaction->kode_transaksi = 'TRNS' . $randomInvoiceNumber . $randomString;
+        // $transaction->status_transaksi = 'Menunggu Pembayaran';
+        $transaction->jumlah_harga = $totalHarga;
+        $transaction->banyak_produk = $banyakProduk;
+        $transaction->save();
+
+        // Simpan detail transaksi (item-item yang dibeli) dan kurangi stok produk
+        foreach ($selectedProductsInfo as $productInfo) {
+            $transactionItem = new TransaksiItem();
+            $transactionItem->id_transaksi = $transaction->id; // ID transaksi yang baru dibuat
+            $transactionItem->id_produk = $productInfo->produk->id; // ID produk
+            $transactionItem->jumlah_produk = $productInfo->banyak_produk; // Jumlah produk yang dibeli
+            $transactionItem->harga_produk = $productInfo->jumlah_harga; // Harga produk
+            $transactionItem->save();
+
+            // Hapus produk dari keranjang
+            $productInfo->delete();
+        }
+
+        // Tampilkan halaman checkout dengan informasi transaksi
+        return redirect('checkout/' . $transaction->kode_transaksi);
+    }
+
+    public function transaction($kode_transaksi)
+    {
+        $transaction = Transaksi::where('kode_transaksi', $kode_transaksi)->first();
+        $pembayaran = Pembayaran::all();
+
+        return view('frontview.checkout', compact('transaction', 'pembayaran'));
+    }
+
+    public function updateTransaksi($kode_transaksi)
+    {
+        $transaksi = Transaksi::where('kode_transaksi', $kode_transaksi)->firstOrFail();
+
+        if (request('alamat')) {
             $transaksi->alamat = request('alamat');
+        }
+        if (request('id_pembayaran')) {
+            $transaksi->id_pembayaran = request('id_pembayaran');
+        }
+        if (request('pesan')) {
             $transaksi->pesan = request('pesan');
-            $transaksi->metode_pembayaran = request('metode_pembayaran');
-            $transaksi->status_transaksi = 'New';
+        }
+        if (request('bukti_pembayaran')) {
+            $transaksi->handleUploadFoto();
+        }
+
+        $transaksi->save();
+
+        $id_pembayaran = request('id_pembayaran');
+        $pembayaran = Pembayaran::find($id_pembayaran);
+
+
+        if ($pembayaran->nama === 'CASH ON DELIVERY') {
+            // Update the status pengiriman
+            $transaksi->status_transaksi = 'Diproses';
             $transaksi->save();
 
-            return redirect('order')->with('success', 'CheckOut Telah Berhasil!!');
+            // Mengambil semua item produk dalam transaksi
+            $items = $transaksi->items; // Asumsi terdapat relasi `items` dalam model Transaksi
+
+            // Mengurangi stok produk berdasarkan jumlah yang dibeli
+            foreach ($items as $item) {
+                $produk = $item->produk; // Asumsi terdapat relasi `produk` dalam model item
+                $produk->stok_produk -= $item->jumlah_produk;
+                $produk->save();
+            }
+
+            return redirect('order')->with('success', 'Pesanan Di Proses');
         } else {
-            return back()->with('danger', ('Silahkan Login Untuk Menjautkan!'));
+            return redirect('confirm/' . $transaksi->kode_transaksi);
         }
+    }
+
+
+    public function updateTransaksi2($kode_transaksi)
+    {
+        $transaksi = Transaksi::where('kode_transaksi', $kode_transaksi)->firstOrFail();
+        if (request('bukti_pembayaran')) $transaksi->handleUploadFoto();
+        $transaksi->status_transaksi = 'Menunggu Konfirmasi';
+
+        $transaksi->save();
+
+        // Mengambil semua item produk dalam transaksi
+        $items = $transaksi->items; // Asumsi terdapat relasi `items` dalam model Transaksi
+
+        // Mengurangi stok produk berdasarkan jumlah yang dibeli
+        foreach ($items as $item) {
+            $produk = $item->produk; // Asumsi terdapat relasi `produk` dalam model item
+            $produk->stok_produk -= $item->jumlah_produk;
+            $produk->save();
+        }
+
+        return redirect('order')->with('success', 'CheckOut Berhasil, Menunggu Konfirmasi');
+    }
+
+    public function confirm($kode_transaksi)
+    {
+        $transaction = Transaksi::where('kode_transaksi', $kode_transaksi)->first();
+
+        return view('frontview.confirm', compact('transaction'));
     }
 
     function destroy($id)

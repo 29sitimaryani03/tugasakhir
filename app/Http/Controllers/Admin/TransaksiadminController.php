@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 
@@ -11,21 +12,44 @@ use App\Models\Galeri;
 use App\Models\Transaksi;
 use App\Models\Konsumen;
 
-class TransaksiadminController extends Controller{
+class TransaksiadminController extends Controller
+{
 
-    function index (){
+    function index()
+    {
         $data['list'] = Transaksi::get();
         return view('admin.transaksi.index', $data);
     }
 
-    function create(){
+    function create()
+    {
         return view('admin,transaksi.create');
     }
 
-    function store(){}
-    function show(){}
-    function edit(){}
-    function update(){}
-    function delete(){}
-    function checkout(){}
+    function store()
+    {
+    }
+    function show()
+    {
+    }
+    function edit()
+    {
+    }
+    // function update($kode_transaksi)
+    // {
+    //     $transaksi = Transaksi::where('kode_transaksi', $kode_transaksi)->firstOrFail();
+    //     if (request('alamat')) $transaksi->alamat = request('alamat');
+    //     if (request('metode_pembayaran')) $transaksi->metode_pembayaran = request('metode_pembayaran');
+    //     if (request('pesan')) $transaksi->pesan = request('pesan');
+
+    //     $transaksi->save();
+
+    //     return redirect()->back()->with('success', 'Permintaan Diproses');
+    // }
+    function delete()
+    {
+    }
+    function checkout()
+    {
+    }
 }

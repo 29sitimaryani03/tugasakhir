@@ -11,37 +11,29 @@ use Illuminate\Support\Str;
 class Transaksi extends Model
 {
     use HasFactory;
-    protected $table = "transaksi";
+    protected $table = 'transaksi';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'kode_transaksi',
         'id_produk',
-        'id_konsumen',
+        'id_user',
         'banyak_produk',
         'jumlah_harga',
+        'alamat',
+        'pesan',
         'metode_pembayaran',
         'bukti_pembayaran',
         'status_transaksi',
     ];
 
-    static $field = [
-        'id_produk'  => 'required',
-        'id_konsumen'  => 'required',
-        'banyak_produk'  => 'required',
-        'jumlah_harga'  => 'required',
-        'metode_pembayaran'  => 'required',
-    ];
-
-    static $pesan = [
-        'id_produk.required'  => 'Harus diisi, tidak bolh kosong !',
-        'id_konsumen.required'  => 'Harus diisi, tidak bolh kosong !',
-        'banyak_produk.required'  => 'Harus diisi, tidak bolh kosong !',
-        'jumlah_harga.required'  => 'Harus diisi, tidak bolh kosong !',
-        'metode_pembayaran.required'  => 'Harus diisi, tidak bolh kosong !',
-    ];
-
-    function konsumen()
+    public function items()
     {
-        return $this->belongsTo(Konsumen::class, 'id_konsumen', 'id');
+        return $this->hasMany(TransaksiItem::class, 'id_transaksi', 'id');
+    }
+
+    public function pembayaran()
+    {
+        return $this->belongsTo(Pembayaran::class, 'id_pembayaran');
     }
 
     public function produk()
@@ -60,7 +52,7 @@ class Transaksi extends Model
             $filename = $this->id . "-" . time() . "-" . $randomStr . "." . $bukti_pembayaran->extension();
             $url = $bukti_pembayaran->storeAs($destination, $filename);
             $this->bukti_pembayaran = "app/" . $url;
-            $this->save;
+            $this->save();
         }
     }
     function handleDeleteFoto()
@@ -86,37 +78,5 @@ class Transaksi extends Model
         $created_at = $this->created_at;
         $jam = $created_at->format('H:i:s'); // Format jam: HH:MM:SS
         return $jam;
-    }
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($cart) {
-            $cart->kode_transaksi = $cart->generateCartCode();
-        });
-    }
-
-    private function generateCartCode()
-    {
-        // Mendapatkan tahun saat ini
-        $year = date('d');
-
-        // Mengambil data keranjang terakhir dari database untuk tahun ini
-        $lastCartOfYear = self::whereYear('created_at', $year)->latest()->first();
-
-        // Mengecek apakah ada data keranjang untuk tahun ini
-        if (!$lastCartOfYear) {
-            $sequence = 1;
-        } else {
-            // Mengambil urutan dari kode keranjang terakhir untuk tahun ini
-            $lastSequence = intval(substr($lastCartOfYear->kode_transaksi, 9)); // Ambil 4 digit terakhir sebagai urutan
-            // Increment urutan
-            $sequence = $lastSequence + 1;
-        }
-
-        // Menghasilkan kode keranjang baru dengan format KR-tahun-urutan
-        $formattedSequence = str_pad($sequence, 4, '0', STR_PAD_LEFT); // Pastikan urutan selalu memiliki 4 digit dengan leading zero jika perlu
-        return "TRNS-$year-$formattedSequence";
     }
 }
