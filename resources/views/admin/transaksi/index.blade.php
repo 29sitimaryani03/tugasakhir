@@ -167,7 +167,7 @@
                                             <span style="font-size: 15px; color: white;" class="font-weight-bold badge bg-warning">Pesanan Baru</span>
                                             @elseif($transaksi->status_transaksi === 'Dikirim')
                                             <span style="font-size: 15px; color: white;" class="font-weight-bold badge bg-primary">Di Kirim</span>
-                                            @elseif($transaksi->status_transaksi === 'Tiba di Tujuan')
+                                            @elseif($transaksi->status_transaksi === 'Tiba Di Tujuan')
                                             <span style="font-size: 15px; color: white;" class="font-weight-bold badge bg-success">Tiba di Tujuan</span>
                                             @elseif($transaksi->status_transaksi === 'Ditolak')
                                             <span style="font-size: 15px; color: white;" class="font-weight-bold badge bg-danger">Di Tolak</span>
